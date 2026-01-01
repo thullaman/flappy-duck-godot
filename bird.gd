@@ -1,4 +1,5 @@
 extends Area2D
+var active := false
 
 signal died
 
@@ -8,12 +9,16 @@ signal died
 var velocity := 0.0
 
 func _physics_process(delta):
+	if not active:
+		return
+
 	velocity += fall_gravity * delta
 
 	if Input.is_action_just_pressed("flap"):
 		velocity = jump_force
 
 	position.y += velocity * delta
+
 
 
 func _on_area_entered(area: Area2D):

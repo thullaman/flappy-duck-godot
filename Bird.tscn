@@ -1,24 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://ne3fpkxwms7q"]
 
 [ext_resource type="Script" path="res://bird.gd" id="1_kvbm4"]
-[ext_resource type="Texture2D" uid="uid://c1g0q870vossl" path="res://art/new-narendra-modi-png-images-download-thumbnail-1639411463.png" id="2_3hysr"]
 [ext_resource type="AudioStream" uid="uid://d2nr4uijwpn6h" path="res://audio/yoo-hoo-sound-effect-128-ytshorts.savetube.me.mp3" id="2_akcu8"]
+[ext_resource type="Texture2D" uid="uid://b6ntuunpka6gu" path="res://art/duck.png" id="2_e8u2m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_riqbt"]
-size = Vector2(146.125, 142.75)
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ai3e"]
+radius = 71.007
 
 [node name="Bird" type="Area2D"]
 script = ExtResource("1_kvbm4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(511.14, 147.194)
-scale = Vector2(0.385075, 0.295497)
-texture = ExtResource("2_3hysr")
+position = Vector2(515, 151)
+scale = Vector2(0.0973104, 0.0908013)
+texture = ExtResource("2_e8u2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 2
-position = Vector2(511.938, 147.375)
-shape = SubResource("RectangleShape2D_riqbt")
+position = Vector2(516, 146)
+shape = SubResource("CircleShape2D_0ai3e")
 
 [node name="FlapSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_akcu8")

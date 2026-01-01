@@ -2,7 +2,6 @@ extends Node2D
 
 @export var pipe_scene: PackedScene
 
-const GAME_HEIGHT := 720.0
 const PIPE_SPACING := 600.0
 const PIPE_COUNT := 5
 const GAP_CENTER := 360.0
@@ -10,6 +9,7 @@ const GAP_VARIATION := 80.0
 
 var score := 0
 var game_over := false
+var game_started := false
 var pipes: Array = []
 
 
@@ -18,16 +18,63 @@ func _ready():
 	$Bird.area_entered.connect(_on_bird_area_entered)
 	$Bird.died.connect(_on_bird_died)
 
+	# Buttons
+	$UI/StartScreen/PlayButton.pressed.connect(_on_play_pressed)
+	$UI/GameOverScreen/RetryButton.pressed.connect(_on_retry_pressed)
+
+	# Initial UI state
+	$UI/StartScreen.visible = true
+	$UI/GameOverScreen.visible = false
+	$UI/ScoreLabel.visible = false
+
+	# Stop bird & music initially
+	$Bird.active = false
+	if $GameMusic:
+		$GameMusic.stop()
+
+
+# --------------------
+# BUTTONS
+# --------------------
+
+func _on_play_pressed():
+	game_started = true
+	game_over = false
+	score = 0
+
 	# UI
+	$UI/StartScreen.visible = false
+	$UI/GameOverScreen.visible = false
+	$UI/ScoreLabel.visible = true
 	$UI/ScoreLabel.text = "0"
-	$UI/GameOverLabel.visible = false
+
+	# Reset bird
+	$Bird.position = Vector2(200, GAP_CENTER)
+	$Bird.velocity = 0
+	$Bird.active = true
+
+	# Pipes
+	_clear_pipes()
+	_spawn_initial_pipes()
 
 	# Music
+	if $GameOverMusic:
+		$GameOverMusic.stop()
 	if $GameMusic:
 		$GameMusic.play()
 
-	_spawn_initial_pipes()
+	get_tree().paused = false
 
+
+func _on_retry_pressed():
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+
+# --------------------
+# PIPES
+# --------------------
 
 func _spawn_initial_pipes():
 	var start_x = 1280 + 200
@@ -41,7 +88,7 @@ func _spawn_initial_pipes():
 
 
 func _process(_delta):
-	if game_over:
+	if not game_started or game_over:
 		return
 
 	for pipe in pipes:
@@ -66,6 +113,16 @@ func _random_gap_y() -> float:
 	)
 
 
+func _clear_pipes():
+	for p in pipes:
+		p.queue_free()
+	pipes.clear()
+
+
+# --------------------
+# COLLISIONS
+# --------------------
+
 func _on_bird_area_entered(area: Area2D):
 	if game_over:
 		return
@@ -73,8 +130,6 @@ func _on_bird_area_entered(area: Area2D):
 	var pipe = area.get_parent()
 
 	if area.is_in_group("pipe"):
-		if $HitSound:
-			$HitSound.play()
 		_end_game()
 
 	elif area.is_in_group("score") and not pipe.scored:
@@ -88,20 +143,28 @@ func _on_bird_area_entered(area: Area2D):
 func _on_bird_died():
 	if game_over:
 		return
-
-	if $HitSound:
-		$HitSound.play()
 	_end_game()
 
 
+# --------------------
+# GAME OVER
+# --------------------
+
 func _end_game():
 	game_over = true
-	$UI/GameOverLabel.visible = true
+	$Bird.active = false
 
-	# Music switch
+	$UI/GameOverScreen.visible = true
+	$UI/StartScreen.visible = false
+	$UI/ScoreLabel.visible = false
+
 	if $GameMusic:
 		$GameMusic.stop()
 	if $GameOverMusic:
 		$GameOverMusic.play()
 
 	get_tree().paused = true
+
+
+func _on_retry_button_pressed() -> void:
+	pass # Replace with function body.

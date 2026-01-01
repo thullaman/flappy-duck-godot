@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2ca07feq46hn"
-path="res://.godot/imported/Top-5-mental-health-chatbots-1-1.png-993f1cd7b34b1d190d560c4dce40540b.ctex"
+uid="uid://b6ntuunpka6gu"
+path="res://.godot/imported/duck.png-ef330ba47f88aa744df4e4c847db9c09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Top-5-mental-health-chatbots-1-1.png"
-dest_files=["res://.godot/imported/Top-5-mental-health-chatbots-1-1.png-993f1cd7b34b1d190d560c4dce40540b.ctex"]
+source_file="res://art/duck.png"
+dest_files=["res://.godot/imported/duck.png-ef330ba47f88aa744df4e4c847db9c09.ctex"]
 
 [params]
 
