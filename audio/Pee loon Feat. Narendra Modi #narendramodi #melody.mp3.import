@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://i1hx4gppw0hk"
+path="res://.godot/imported/Pee loon Feat. Narendra Modi #narendramodi #melody.mp3-e4cd8433a11b5cea0d6cbb25bf1b09cb.mp3str"
+
+[deps]
+
+source_file="res://audio/Pee loon Feat. Narendra Modi #narendramodi #melody.mp3"
+dest_files=["res://.godot/imported/Pee loon Feat. Narendra Modi #narendramodi #melody.mp3-e4cd8433a11b5cea0d6cbb25bf1b09cb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

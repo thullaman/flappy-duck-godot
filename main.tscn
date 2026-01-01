@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://dij3tag8cv4jt"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_8ljr1"]
+[ext_resource type="Texture2D" uid="uid://81em2tf8llbu" path="res://art/Pink.png" id="1_klltf"]
+[ext_resource type="PackedScene" uid="uid://ne3fpkxwms7q" path="res://Bird.tscn" id="2_neiot"]
+[ext_resource type="PackedScene" uid="uid://lx3ysc0al1ar" path="res://pipe_pair.tscn" id="3_vohca"]
+[ext_resource type="Script" path="res://background.gd" id="4_4l6qs"]
+[ext_resource type="AudioStream" uid="uid://i1hx4gppw0hk" path="res://audio/Pee loon Feat. Narendra Modi #narendramodi #melody.mp3" id="6_bo4vq"]
+[ext_resource type="AudioStream" uid="uid://chgohd34xr7mv" path="res://art/explosion-sound-effect-128-ytshorts.savetube.me.mp3" id="7_dqsfy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3fts"]
+size = Vector2(1154, 16)
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_8ljr1")
+pipe_scene = ExtResource("3_vohca")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(1355, 799.75)
+scale = Vector2(40.3437, 23.8203)
+texture = ExtResource("1_klltf")
+script = ExtResource("4_4l6qs")
+
+[node name="Bird" parent="." instance=ExtResource("2_neiot")]
+position = Vector2(-57, 142)
+
+[node name="PipeTimer" type="Timer" parent="."]
+wait_time = 1.2
+autostart = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+
+[node name="PointSound" type="AudioStreamPlayer" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GameOverLabel" type="Label" parent="UI"]
+offset_left = 922.0
+offset_top = 527.0
+offset_right = 1878.0
+offset_bottom = 989.0
+theme_override_font_sizes/font_size = 154
+text = "GAME  OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 80.0
+offset_top = 41.0
+offset_right = 236.0
+offset_bottom = 141.0
+theme_override_font_sizes/font_size = 66
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="floor" type="Area2D" parent="." groups=["ground"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+visibility_layer = 2
+position = Vector2(654, 1552)
+shape = SubResource("RectangleShape2D_w3fts")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_bo4vq")
+parameters/looping = true
+
+[node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("7_dqsfy")
